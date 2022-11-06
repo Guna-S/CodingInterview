@@ -1,0 +1,89 @@
+openapi: 3.0.3
+info:
+  title: LCS Api
+  description: Longest Common Substring finder api.
+  version: 1.0.0
+servers:
+  - url: 'http://localhost:8080'
+tags:
+  - name: lcs
+paths:
+  /v1/lcs:
+    post:
+      description: >
+        Find the longest common substring from the given list of strings.
+      operationId: findLcs
+      tags:
+        - lcs
+      requestBody:
+        $ref: "#/components/requestBodies/LcsRequest"
+      responses:
+        200:
+          $ref: "#/components/responses/LcsResponse"
+        400:
+          description: "Bad Request"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        404:
+          description: "No match found."
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+        500:
+          description: "Server Error"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+components:
+  requestBodies:
+    LcsRequest:
+      content:
+        application/json:
+          schema:
+            type: object
+            description: "The input contains list of strings"
+            required:
+              - setOfStrings
+            properties:
+              setOfStrings:
+                type: array
+                items:
+                  allOf:
+                    - $ref: '#/components/schemas/Keys'
+  responses:
+    LcsResponse:
+      description: "LCS is found."
+      content:
+        application/json:
+          schema:
+            type: object
+            description: "The list of common substrings found."
+            required:
+              - lcs
+            properties:
+              lcs:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Keys'
+  schemas:
+    Keys:
+      type: object
+      required:
+        - value
+      properties:
+        value:
+          type: string
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          example: "setOfStrings should not be empty."
+        code:
+          type: integer
+          example: 400
