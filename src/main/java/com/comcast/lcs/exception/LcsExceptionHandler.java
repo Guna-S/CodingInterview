@@ -19,27 +19,27 @@ public class LcsExceptionHandler {
   @ResponseStatus(BAD_REQUEST)
   public ErrorResponse errorResponse(final HttpMessageNotReadableException exception){
     log.error("[LCS] : {}", exception.getMessage(), exception);
-    return new ErrorResponse("The format of the request is not acceptable", BAD_REQUEST.value());
+    return new ErrorResponse("The format of the request is not acceptable");
   }
 
   @ExceptionHandler(value = LcsBadRequestException.class)
   @ResponseStatus(BAD_REQUEST)
   public ErrorResponse handleBadRequest(final LcsBadRequestException exception) {
     log.error("[LCS] : {}", exception.getMessage(), exception);
-    return new ErrorResponse(exception.getMessage(), BAD_REQUEST.value());
+    return new ErrorResponse(exception.getMessage());
   }
 
   @ExceptionHandler(value = LcsNotFoundException.class)
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ErrorResponse handleNotFound(final LcsNotFoundException exception) {
     log.error("[LCS] : {}", exception.getMessage(), exception);
-    return new ErrorResponse(exception.getMessage(), HttpStatus.NOT_FOUND.value());
+    return new ErrorResponse(exception.getMessage());
   }
 
   @ExceptionHandler(value = LcsServerException.class)
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
   public ErrorResponse handleServerException(final LcsServerException exception) {
     log.error("[LCS] : {}", exception.getMessage(), exception);
-    return new ErrorResponse(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.value());
+    return new ErrorResponse(exception.getMessage());
   }
 }

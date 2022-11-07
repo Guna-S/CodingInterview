@@ -23,7 +23,7 @@ class V1ApiIT extends AbstractIT {
   @Test
   @DisplayName("Expect bad request if there is no request body.")
   void verifyEmptyRequest(){
-    var expectedErrorResponse = new ErrorResponse("The format of the request is not acceptable",400);
+    var expectedErrorResponse = new ErrorResponse("The format of the request is not acceptable");
 
       webTestClient
           .post()
@@ -40,7 +40,7 @@ class V1ApiIT extends AbstractIT {
   @Test
   @DisplayName("Expect bad request if the set is empty.")
   void verifyIfSetIsEmpty(){
-    var expectedErrorResponse = new ErrorResponse("setOfStrings should not be empty",400);
+    var expectedErrorResponse = new ErrorResponse("setOfStrings should not be empty");
 
     webTestClient
         .post()
@@ -57,7 +57,7 @@ class V1ApiIT extends AbstractIT {
   @Test
   @DisplayName("Expect bad request if the set is not unique.")
   void verifyNotUniqueSetRequest(){
-    var expectedErrorResponse = new ErrorResponse("setOfStrings must be a set",400);
+    var expectedErrorResponse = new ErrorResponse("setOfStrings must be a set");
 
     webTestClient
         .post()
@@ -74,7 +74,7 @@ class V1ApiIT extends AbstractIT {
   @Test
   @DisplayName("Expect not found if the set is not unique.")
   void verifyExceptionIfNoMatchFound(){
-    var expectedErrorResponse = new ErrorResponse("No match found",404);
+    var expectedErrorResponse = new ErrorResponse("No match found");
 
     webTestClient
         .post()

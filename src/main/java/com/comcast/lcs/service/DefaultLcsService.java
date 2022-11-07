@@ -5,6 +5,7 @@ import static java.util.stream.Collectors.groupingBy;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.stream.Collectors;
@@ -31,21 +32,22 @@ public class DefaultLcsService implements LcsService {
       throw new LcsBadRequestException("Invalid Format");
     }
 
-    final ImmutableList<String> wordsList = lcsRequest
+    final List<String> wordsList = lcsRequest
         .keys()
         .stream()
         .map(Keys::value)
-        .collect(ImmutableList.toImmutableList());
-
-    if(wordsList.size() != wordsList.stream().collect(Collectors.toSet()).size()){
-      throw new LcsBadRequestException("setOfStrings must be a set");
-    }
+        .filter(Objects::nonNull)
+        .collect(Collectors.toList());
 
     if(wordsList.isEmpty()) {
       throw new LcsBadRequestException("setOfStrings should not be empty");
     }
 
-    final Set<String> resultSet = getLCSSet(wordsList);
+    if(wordsList.size() != wordsList.stream().collect(Collectors.toSet()).size()){
+      throw new LcsBadRequestException("setOfStrings must be a set");
+    }
+
+    final Set<String> resultSet = getLCSSet(ImmutableList.copyOf(wordsList));
     log.info("resultSet {} ", resultSet);
 
     if( resultSet.isEmpty() ) {
