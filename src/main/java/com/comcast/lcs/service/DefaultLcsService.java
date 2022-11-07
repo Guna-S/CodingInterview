@@ -56,33 +56,7 @@ public class DefaultLcsService implements LcsService {
 
   }
 
-  private static String getLongestCommonSubstring(final ImmutableList<String> wordsList) {
-    final int listSize = wordsList.size();
-
-    final String firstWord = wordsList.get(0);
-    final int length = firstWord.length();
-
-    String result = "";
-    for( int i = 0; i < length; i++ ) {
-      for (int j = i+1 ; j <= length; j++ ) {
-        final String substr = firstWord.substring(i,j);
-        int index = 1;
-        while(index < listSize) {
-          if(!wordsList.get(index).contains(substr)) {
-            System.out.println(" wordsList.get(index) ->" + wordsList.get(index) + " substr " + substr);
-            break;
-          }
-          index++;
-        }
-        if (index == listSize && result.length() < substr.length())
-          result = substr;
-      }
-      System.out.println( " result -> " + result);
-    }
-    return result;
-  }
-
-  private static Set<String> getLCSSet(final ImmutableList<String> wordsList) {
+  private Set<String> getLCSSet(final ImmutableList<String> wordsList) {
     final int listSize = wordsList.size();
 
     final String firstWord = wordsList.get(0);
@@ -124,17 +98,4 @@ public class DefaultLcsService implements LcsService {
 
   }
 
-  public static void main(String[] args){
-
-    //System.out.println("->"+ (identifyCommonSubStrOfNStr(new String[] {"comcast","comcastic", "broadcaster"})));
-    //System.out.println("->"+ (identifyCommonSubStrOfNStr(new String[] {"ab1cd1","ab2cd2", "ab2cd3"})));
-    //System.out.println("->"+ getLongestCommonSubstring(ImmutableList.of("comcast","comcastic", "broadcaster")));
-    //System.out.println("->"+ getLongestCommonSubstring(ImmutableList.of("cast","caste", "locaste","case")));
-    //System.out.println("->"+ getLongestCommonSubstring(ImmutableList.of("testt1order1","testt2order2", "testt3order3","testt4order4")));
-    //System.out.println("->"+ getLongestCommonSubstringSet(ImmutableList.of("ab1cd1","ab2cd2" )));
-    //System.out.println("->"+ getLongestCommonSubstringSet(ImmutableList.of("testt1order1","testt2order2", "testt3order3","testt4order4")));
-/*    test(ImmutableList.of("testt1order1","testt2order2", "testt3order3","testt4order4"));
-    test(ImmutableList.of("comcast","comcastic", "broadcaster"));*/
-
-  }
 }
