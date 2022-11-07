@@ -1,4 +1,4 @@
-package com.comcast.lcs.config.exception;
+package com.comcast.lcs.exception;
 
 public class LcsBadRequestException extends RuntimeException {
 

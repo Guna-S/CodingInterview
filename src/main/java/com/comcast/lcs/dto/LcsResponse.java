@@ -1,8 +1,8 @@
 package com.comcast.lcs.dto;
 
-import java.util.Set;
+import com.google.common.collect.ImmutableSet;
 
 /**
  * The list of common substrings found.
  */
-public record LcsResponse(Set<Keys> lcs){}
+public record LcsResponse(ImmutableSet<Keys> lcs){}
